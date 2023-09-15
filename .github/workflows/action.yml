@@ -1,0 +1,26 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image
+        run: docker build -t hello-world-app:${{ github.sha }} .
+
+      - name: Tag Docker image
+        run: docker tag hello-world-app:${{ github.sha }} your-dockerhub-username/hello-world-app:${{ github.sha }}
+
+      - name: Push Docker image
+        run: docker push your-dockerhub-username/hello-world-app:${{ github.sha }}

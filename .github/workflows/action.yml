@@ -20,7 +20,7 @@ jobs:
         run: docker build -t hello-world-app:${{ github.sha }} .
 
       - name: Tag Docker image
-        run: docker tag hello-world-app:${{ github.sha }} your-dockerhub-username/hello-world-app:${{ github.sha }}
+        run: docker tag hello-world-app:${{ github.sha }} orolickiuros/hello-world-app:${{ github.sha }}
 
       - name: Push Docker image
-        run: docker push your-dockerhub-username/hello-world-app:${{ github.sha }}
+        run: docker push orolickiuros/hello-world-app:${{ github.sha }}
